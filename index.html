@@ -2,1509 +2,506 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>xD — Developer · AI Builder</title>
-<meta name="description" content="xD — developer, AI builder, digital creator. Node xD-4RMY.">
-<meta name="theme-color" content="#0a0a0e">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>xD — AI Systems & Infrastructure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0a0e;
-  --bg-soft:#0d0d12;
-  --surface:#111116;
-  --surface-2:#15151c;
-
-  --border:rgba(255,255,255,.06);
-  --border-2:rgba(255,255,255,.10);
-
-  --text:#e9e7ef;
-  --text-2:#b8b5c4;
-  --text-3:#8a8798;
-  --text-4:#5a5666;
-
-  --accent:#9d7cff;
-  --accent-2:#c4a8ff;
-  --accent-3:#7a5cf0;
-  --accent-soft:rgba(157,124,255,.10);
-  --accent-line:rgba(157,124,255,.28);
-
-  --font:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --fa:'Vazirmatn', sans-serif;
-  --jp:'Noto Sans JP', sans-serif;
-
-  --max:1160px;
-  --ease:cubic-bezier(.22,.61,.36,1);
+:root {
+  --md-sys-color-background: #040607;
+  --md-sys-color-surface: rgba(13, 13, 18, 0.65);
+  --md-sys-color-surface-hover: rgba(21, 21, 28, 0.85);
+  --md-sys-color-primary: #BF40FA;
+  --md-sys-color-primary-container: rgba(191, 64, 250, 0.15);
+  --md-sys-color-secondary: #4928C2;
+  --md-sys-color-tertiary: #5B2A62;
+  --md-sys-color-on-background: #E3D9FC;
+  --md-sys-color-on-surface-variant: #9E96B3;
+  --md-sys-color-outline: rgba(227, 217, 252, 0.15);
+  --md-sys-color-outline-variant: rgba(227, 217, 252, 0.05);
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-large: 20px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-full: 999px;
 }
 
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font);
-  font-size:15px;
-  line-height:1.65;
-  font-weight:400;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  letter-spacing:-.005em;
-  overflow-x:hidden;
+*, *::before, *::after { box-sizing: border-box; }
+html, body { 
+  margin: 0; 
+  height: 100dvh; 
+  overflow: hidden; 
+  background-color: var(--md-sys-color-background); 
+  color: var(--md-sys-color-on-background); 
+  font-family: 'Inter', sans-serif; 
+  -webkit-font-smoothing: antialiased; 
 }
-a{color:inherit;text-decoration:none}
-button{font:inherit;background:none;border:0;padding:0;cursor:pointer;color:inherit}
-img{max-width:100%;display:block}
-::selection{background:var(--accent);color:#0a0a0e}
+a { color: inherit; text-decoration: none; }
+::-webkit-scrollbar { display: none; }
 
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#25252e;border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:#33333f}
+.bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--md-sys-color-background); }
+.orb { 
+  position: absolute; 
+  filter: blur(90px); 
+  opacity: 0.85; 
+  mix-blend-mode: screen;
+  animation: lavaFlow 20s infinite alternate ease-in-out; 
+}
+.o1 { width: 80vw; height: 80vw; top: -20%; left: -15%; background: var(--md-sys-color-primary); animation-duration: 25s; }
+.o2 { width: 70vw; height: 70vw; bottom: -20%; right: -15%; background: var(--md-sys-color-secondary); animation-delay: -7s; animation-duration: 28s; }
+.o3 { width: 60vw; height: 60vw; top: 10%; left: 30%; background: #FF5EDB; animation-delay: -12s; animation-duration: 32s; }
+.o4 { width: 55vw; height: 55vw; bottom: 0%; left: -10%; background: var(--md-sys-color-tertiary); animation-delay: -18s; animation-duration: 26s; }
 
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
-
-/* ============================================================
-   ANIMATED BACKGROUND
-   ============================================================ */
-.bg-anim{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  pointer-events:none;
-  background:var(--bg);
+@keyframes lavaFlow { 
+  0% { transform: translate(0, 0) scale(1); border-radius: 50% 50% 50% 50%; } 
+  33% { transform: translate(8vw, 12vh) scale(1.15); border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%; }
+  66% { transform: translate(-6vw, 18vh) scale(0.9); border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%; }
+  100% { transform: translate(-12vw, -8vh) scale(1.2); border-radius: 50% 50% 50% 50%; } 
 }
 
-/* soft drifting orbs */
-.bg-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(110px);
-  opacity:.55;
-  will-change:transform;
-  transform:translate3d(0,0,0);
+.m3-shape {
+  position: absolute;
+  background: var(--md-sys-color-on-background);
+  opacity: 0.15;
+  animation: floatShape 15s infinite ease-in-out alternate;
+  z-index: 1;
 }
-.bg-orb-1{
-  width:620px;height:620px;
-  top:-14%;left:-8%;
-  background:radial-gradient(circle, rgba(157,124,255,.75), rgba(157,124,255,0) 68%);
-  animation:orb1 26s ease-in-out infinite;
+.shape-star {
+  width: 140px; height: 140px;
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  top: 10%; right: 5%;
+  background: var(--md-sys-color-primary);
+  opacity: 0.3;
+  animation-duration: 20s;
 }
-.bg-orb-2{
-  width:540px;height:540px;
-  bottom:-18%;right:-10%;
-  background:radial-gradient(circle, rgba(122,92,240,.65), rgba(122,92,240,0) 68%);
-  animation:orb2 32s ease-in-out infinite;
+.shape-pill {
+  width: 120px; height: 60px;
+  border-radius: var(--md-sys-shape-corner-full);
+  bottom: 15%; left: 5%;
+  background: var(--md-sys-color-secondary);
+  opacity: 0.3;
+  animation-duration: 18s;
+  animation-delay: -5s;
 }
-.bg-orb-3{
-  width:460px;height:460px;
-  top:34%;left:48%;
-  background:radial-gradient(circle, rgba(196,168,255,.5), rgba(196,168,255,0) 68%);
-  animation:orb3 38s ease-in-out infinite;
-}
-.bg-orb-4{
-  width:320px;height:320px;
-  top:8%;right:18%;
-  background:radial-gradient(circle, rgba(122,92,240,.45), rgba(122,92,240,0) 70%);
-  animation:orb4 44s ease-in-out infinite;
-}
-
-@keyframes orb1{
-  0%,100%{ transform:translate3d(0,0,0) scale(1); }
-  33%   { transform:translate3d(14%, 8%, 0) scale(1.08); }
-  66%   { transform:translate3d(-4%, 18%, 0) scale(.95); }
-}
-@keyframes orb2{
-  0%,100%{ transform:translate3d(0,0,0) scale(1); }
-  50%   { transform:translate3d(-14%, -18%, 0) scale(1.12); }
-}
-@keyframes orb3{
-  0%,100%{ transform:translate3d(-50%,-50%,0) scale(1); }
-  50%   { transform:translate3d(-42%, -58%, 0) scale(1.18); }
-}
-@keyframes orb4{
-  0%,100%{ transform:translate3d(0,0,0) scale(1); }
-  50%   { transform:translate3d(-16%, 12%, 0) scale(1.1); }
+.shape-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  top: 40%; right: 20%;
+  background: var(--md-sys-color-tertiary);
+  opacity: 0.4;
+  animation-duration: 12s;
+  animation-delay: -8s;
 }
 
-/* subtle dot grid with soft radial fade */
-.bg-grid{
-  position:absolute;
-  inset:-1px;
-  background-image:radial-gradient(circle, rgba(157,124,255,.14) 1px, transparent 1.4px);
-  background-size:34px 34px;
-  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, #000 0%, transparent 78%);
-          mask-image:radial-gradient(ellipse 90% 70% at 50% 40%, #000 0%, transparent 78%);
-  opacity:.55;
-  animation:gridDrift 90s linear infinite;
-}
-@keyframes gridDrift{
-  0%   { background-position:0 0; }
-  100% { background-position:34px 34px; }
+@keyframes floatShape {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-20px, 30px) rotate(45deg); }
 }
 
-/* soft horizontal scan glow that sweeps down slowly */
-.bg-scan{
-  position:absolute;
-  left:0; right:0;
-  height:38vh;
-  top:-40vh;
-  background:linear-gradient(180deg,
-    transparent 0%,
-    rgba(157,124,255,.05) 40%,
-    rgba(157,124,255,.08) 50%,
-    rgba(157,124,255,.05) 60%,
-    transparent 100%);
-  animation:scanMove 22s linear infinite;
-  filter:blur(6px);
+.app { 
+  display: flex; 
+  flex-direction: column; 
+  height: 100dvh; 
+  padding: 14px; 
+  gap: 12px; 
+  max-width: 1600px; 
+  margin: 0 auto; 
+  position: relative; 
+  z-index: 2; 
 }
-@keyframes scanMove{
-  0%   { top:-40vh; }
-  100% { top:140vh; }
-}
+.top { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; padding: 0 8px; }
+.brand { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--md-sys-color-primary); box-shadow: 0 0 12px var(--md-sys-color-primary); }
+.nav { display: flex; gap: 20px; font-size: 13px; color: var(--md-sys-color-on-surface-variant); font-weight: 500; }
+.nav a:hover { color: var(--md-sys-color-on-background); }
 
-/* grain overlay for texture */
-.bg-grain{
-  position:absolute;
-  inset:-50%;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-  opacity:.035;
-  mix-blend-mode:overlay;
-  animation:grainShift .9s steps(3) infinite;
-}
-@keyframes grainShift{
-  0%   { transform:translate(0,0); }
-  33%  { transform:translate(-2%, 1%); }
-  66%  { transform:translate(1%, -2%); }
-  100% { transform:translate(0,0); }
-}
+.grid { display: grid; grid-template-columns: 1fr 1.1fr 1.2fr; gap: 12px; flex: 1; min-height: 0; }
+.col { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 
-/* vignette to keep focus in the middle */
-.bg-vignette{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 42%, transparent 32%, rgba(10,10,14,.75) 100%),
-    linear-gradient(180deg, rgba(10,10,14,.35) 0%, transparent 14%, transparent 86%, rgba(10,10,14,.45) 100%);
+.card { 
+  background: var(--md-sys-color-surface); 
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-extra-large); 
+  padding: 20px; 
+  display: flex; flex-direction: column; overflow: hidden; 
+  transition: background 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
+.card:hover { background: var(--md-sys-color-surface-hover); }
+.flex-1 { flex: 1; }
 
-/* everything above the background */
-.nav, main, .footer{ position:relative; z-index:1; }
+.title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-primary); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 500;}
+.title span { color: var(--md-sys-color-on-surface-variant); font-size: 10px; }
 
-/* ============================================================
-   LAYOUT
-   ============================================================ */
-.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-@media (max-width:640px){ .wrap{padding:0 18px} }
+.hero { margin-bottom: 20px; }
+.hero h1 { font-size: 36px; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 8px; color: #FFF; }
+.hero p { color: var(--md-sys-color-on-surface-variant); font-size: 13px; margin: 0; line-height: 1.5; font-weight: 500; }
+.hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-primary); margin-top: 10px; display: block; letter-spacing: 0.05em;}
 
-section{padding:88px 0}
-@media (max-width:640px){ section{padding:64px 0} }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.list li { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding-bottom: 8px; border-bottom: 1px solid var(--md-sys-color-outline-variant); }
+.list li:last-child { border-bottom: none; padding-bottom: 0; }
+.list .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-on-surface-variant); }
+.list .v { font-weight: 500; text-align: right; }
+.hl { color: var(--md-sys-color-primary); }
+.btw { color: var(--md-sys-color-on-surface-variant); font-size: 10px; font-style: italic; margin-left: 4px; }
 
-/* ============================================================
-   NAV
-   ============================================================ */
-.nav{
-  position:sticky;top:0;z-index:50;
-  background:rgba(10,10,14,.6);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-}
-.nav-inner{
-  max-width:var(--max);margin:0 auto;
-  padding:16px 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:24px;
-}
-@media (max-width:640px){ .nav-inner{padding:14px 18px} }
+.lang-item { margin-bottom: 12px; }
+.lang-item:last-child { margin-bottom: 0; }
+.lang-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; font-weight: 500; }
+.lang-top span:last-child { color: var(--md-sys-color-primary); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.lang-track { height: 4px; background: var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-full); overflow: hidden; }
+.lang-fill { height: 100%; background: var(--md-sys-color-primary); border-radius: var(--md-sys-shape-corner-full); }
 
-.logo{
-  font-family:var(--mono);font-size:14px;font-weight:500;
-  letter-spacing:-.01em;color:var(--text);
-  display:flex;align-items:center;gap:10px;
-}
-.logo .dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--accent);box-shadow:0 0 10px var(--accent);
-}
-.logo .node{color:var(--text-3);font-size:12px;font-weight:400}
+.radar-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.radar-wrap svg { width: 100%; height: 100%; max-height: 100%; display: block; }
+.radar-grid { stroke: var(--md-sys-color-outline); fill: none; }
+.radar-axis { stroke: var(--md-sys-color-outline-variant); }
+.radar-poly { fill: var(--md-sys-color-primary-container); stroke: var(--md-sys-color-primary); stroke-width: 2; stroke-linejoin: round; }
+.radar-dot { fill: var(--md-sys-color-on-background); stroke: var(--md-sys-color-background); stroke-width: 2; }
+.radar-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--md-sys-color-on-surface-variant); font-weight: 500; }
+.radar-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--md-sys-color-primary); font-weight: 600; }
 
-.nav-links{
-  display:flex;align-items:center;gap:28px;
-  font-size:13.5px;color:var(--text-3);
-}
-.nav-links a{transition:color .25s var(--ease)}
-.nav-links a:hover{color:var(--text)}
-@media (max-width:640px){ .nav-links{display:none} }
+.stack-row { display: flex; gap: 12px; }
+.stack-col { flex: 1; }
+.stack-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.stack-list li { display: flex; justify-content: space-between; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); font-size: 12px; font-weight: 500; transition: background 0.2s;}
+.stack-list li:hover { background: rgba(255,255,255,0.08); }
+.stack-list .desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--md-sys-color-on-surface-variant); }
 
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero{padding:120px 0 100px;position:relative;overflow:hidden}
-@media (max-width:640px){ .hero{padding:80px 0 64px} }
+.proj-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto;}
+.proj-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); font-size: 13px; gap: 12px; transition: background 0.2s;}
+.proj-item:hover { background: rgba(255,255,255,0.08); }
+.proj-info { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.proj-name { font-weight: 600; font-size: 13px; color: #FFF; }
+.proj-desc { font-size: 11px; color: var(--md-sys-color-on-surface-variant); line-height: 1.4; }
+.status { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 4px 8px; border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; gap: 4px; border: 1px solid currentColor; white-space: nowrap; font-weight: 500; }
+.status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+.live { color: var(--md-sys-color-primary); }
+.dev { color: var(--md-sys-color-secondary); }
+.rnd { color: #a78bfa; }
+.beta { color: #facc15; }
 
-.hero-inner{position:relative;z-index:1}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.contact-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); transition: background 0.2s; }
+.contact-item:hover { background: rgba(255,255,255,0.08); }
+.ci { color: var(--md-sys-color-primary); display: flex; align-items: center; justify-content: center; }
+.ci svg { width: 18px; height: 18px; }
+.ct { display: flex; flex-direction: column; overflow: hidden; }
+.cl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.05em;}
+.cv { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-family:var(--mono);font-size:12px;letter-spacing:.02em;
-  color:var(--text-3);padding:7px 14px;
-  border:1px solid var(--border-2);border-radius:100px;
-  margin-bottom:32px;
-  background:rgba(10,10,14,.4);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-}
-.eyebrow .pill{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--accent);box-shadow:0 0 8px var(--accent);
-}
-
-.hero h1{
-  font-family:var(--mono);
-  font-size:clamp(64px, 12vw, 148px);
-  font-weight:500;line-height:.92;letter-spacing:-.04em;
-  margin:0 0 28px;
-  background:linear-gradient(180deg, #ffffff 0%, #c4a8ff 130%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.hero-tagline{
-  font-size:clamp(17px, 2vw, 21px);
-  color:var(--text-2);max-width:640px;
-  line-height:1.5;font-weight:300;letter-spacing:-.01em;
-  margin:0 0 44px;
-}
-.hero-tagline strong{color:var(--text);font-weight:500}
-
-.hero-meta{
-  display:flex;flex-wrap:wrap;gap:8px 28px;
-  font-family:var(--mono);font-size:12.5px;color:var(--text-3);
-}
-.hero-meta span{display:inline-flex;align-items:center;gap:8px}
-.hero-meta b{color:var(--text-2);font-weight:400}
-.hero-meta .k{
-  width:5px;height:5px;border-radius:50%;
-  background:var(--accent);opacity:.6;
-}
-
-/* ============================================================
-   SECTION HEADERS
-   ============================================================ */
-.section-head{
-  display:flex;align-items:baseline;gap:18px;
-  margin-bottom:44px;padding-bottom:18px;
-  border-bottom:1px solid var(--border);
-}
-.section-num{
-  font-family:var(--mono);font-size:12px;
-  color:var(--accent);font-weight:500;
-}
-.section-title{
-  font-size:22px;font-weight:500;
-  letter-spacing:-.02em;color:var(--text);margin:0;
-}
-.section-note{
-  margin-left:auto;
-  font-family:var(--mono);font-size:11.5px;
-  color:var(--text-4);letter-spacing:.02em;
-}
-@media (max-width:640px){ .section-note{display:none} }
-
-/* ============================================================
-   REVEAL
-   ============================================================ */
-.reveal{
-  opacity:0;transform:translateY(14px);
-  transition:opacity .7s var(--ease), transform .7s var(--ease);
-}
-.reveal.in{opacity:1;transform:none}
-
-/* ============================================================
-   PROFILE / INFO
-   ============================================================ */
-.info{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:48px 72px;align-items:start;
-}
-@media (max-width:820px){ .info{grid-template-columns:1fr;gap:40px} }
-
-.info-block h3{
-  font-size:13px;font-weight:500;letter-spacing:.02em;
-  color:var(--text-3);margin:0 0 18px;
-  text-transform:uppercase;font-family:var(--mono);
-}
-
-.info-rows{list-style:none;margin:0;padding:0}
-.info-rows li{
-  display:flex;align-items:baseline;justify-content:space-between;
-  gap:16px;padding:12px 0;border-bottom:1px solid var(--border);
-  font-size:14.5px;
-}
-.info-rows li:last-child{border-bottom:0}
-.info-rows .k{
-  color:var(--text-3);font-size:13.5px;
-  font-family:var(--mono);letter-spacing:-.005em;
-}
-.info-rows .v{color:var(--text);text-align:right;font-weight:400}
-.info-rows .v.accent{color:var(--accent-2)}
-.info-rows .v.fa{font-family:var(--fa);font-size:15.5px}
-.info-rows .v.muted{color:var(--text-3)}
-.info-rows .v .btw{
-  color:var(--text-4);
-  font-style:italic;
-  font-size:12px;
-  margin-left:6px;
-}
-
-/* ============================================================
-   LANGUAGES
-   ============================================================ */
-.lang-list{display:flex;flex-direction:column;gap:22px}
-.lang-item{padding-bottom:22px;border-bottom:1px solid var(--border)}
-.lang-item:last-child{border-bottom:0;padding-bottom:0}
-
-.lang-head{
-  display:flex;align-items:baseline;justify-content:space-between;
-  gap:12px;margin-bottom:10px;
-}
-.lang-name{font-size:16px;font-weight:500;color:var(--text);letter-spacing:-.01em}
-.lang-native{
-  font-size:13px;color:var(--text-3);
-  font-family:var(--fa);direction:rtl;
-}
-.lang-native.jp{font-family:var(--jp);direction:ltr;font-weight:300}
-.lang-native.en{font-family:var(--font);letter-spacing:.02em}
-
-.lang-level{
-  font-family:var(--mono);font-size:11.5px;
-  color:var(--text-3);text-align:right;
-}
-.lang-level b{color:var(--accent-2);font-weight:500}
-
-.lang-bar{
-  position:relative;height:2px;
-  background:var(--border-2);border-radius:2px;overflow:hidden;
-}
-.lang-bar i{
-  position:absolute;inset:0 auto 0 0;
-  background:linear-gradient(90deg, var(--accent-3), var(--accent-2));
-  border-radius:2px;
-}
-
-/* ============================================================
-   SKILL LISTS
-   ============================================================ */
-.cols-3{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:44px;
-}
-@media (max-width:900px){ .cols-3{grid-template-columns:1fr;gap:40px} }
-
-.skill-col h3{
-  font-family:var(--mono);font-size:12px;font-weight:500;
-  letter-spacing:.04em;color:var(--text-3);
-  margin:0 0 22px;text-transform:uppercase;
-}
-.skill-list{list-style:none;padding:0;margin:0}
-.skill-list li{
-  display:flex;align-items:baseline;justify-content:space-between;
-  gap:14px;padding:11px 0;
-  border-bottom:1px solid var(--border);
-  font-size:14.5px;
-}
-.skill-list li:last-child{border-bottom:0}
-.skill-list .name{color:var(--text);font-weight:400}
-.skill-list .desc{
-  color:var(--text-4);font-size:12.5px;
-  font-family:var(--mono);text-align:right;letter-spacing:-.005em;
-}
-
-.areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.areas span{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:13.5px;color:var(--text-2);
-  padding:9px 15px;
-  border:1px solid var(--border-2);border-radius:100px;
-  background:rgba(255,255,255,.012);
-  transition:border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
-}
-.areas span::before{
-  content:'';width:5px;height:5px;border-radius:50%;
-  background:var(--accent);opacity:.65;flex-shrink:0;
-}
-.areas span:hover{
-  border-color:var(--accent-line);
-  color:var(--text);background:var(--accent-soft);
-}
-
-/* ============================================================
-   CHART PANEL
-   ============================================================ */
-.chart-grid{
-  display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);
-  gap:56px;align-items:center;
-}
-@media (max-width:900px){ .chart-grid{grid-template-columns:1fr;gap:40px} }
-
-.chart-panel{
-  position:relative;
-  padding:28px;
-  border:1px solid var(--border);
-  background:linear-gradient(180deg, rgba(157,124,255,.025), transparent 60%);
-  border-radius:2px;
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-}
-.chart-panel svg{display:block;width:100%;height:auto}
-.chart-caption{
-  position:absolute;top:18px;left:22px;
-  font-family:var(--mono);font-size:10.5px;
-  color:var(--text-4);letter-spacing:.05em;
-}
-
-.chart-legend{
-  display:flex;flex-direction:column;gap:18px;
-}
-.chart-legend h3{
-  font-size:13px;font-weight:500;letter-spacing:.02em;
-  color:var(--text-3);margin:0 0 4px;
-  text-transform:uppercase;font-family:var(--mono);
-}
-.chart-legend p{
-  font-size:14px;color:var(--text-2);
-  line-height:1.7;margin:0;
-}
-
-.radar-grid line,
-.radar-grid circle,
-.radar-grid polygon{stroke:var(--border-2);fill:none;stroke-width:1}
-.radar-axis{stroke:var(--border);stroke-width:1}
-.radar-poly{
-  fill:rgba(157,124,255,.18);
-  stroke:var(--accent);
-  stroke-width:1.5;
-  stroke-linejoin:round;
-  filter:drop-shadow(0 0 8px rgba(157,124,255,.35));
-}
-.radar-dot{
-  fill:var(--accent-2);
-  stroke:var(--bg);
-  stroke-width:1.5;
-}
-.radar-label{
-  font-family:var(--mono);
-  font-size:10.5px;
-  fill:var(--text-3);
-  letter-spacing:.02em;
-}
-.radar-label.big{
-  fill:var(--text-2);
-  font-size:11px;
-}
-.radar-val{
-  font-family:var(--mono);
-  font-size:9.5px;
-  fill:var(--accent-2);
-}
-
-.net-line{
-  stroke:var(--accent-line);
-  stroke-width:1;
-  fill:none;
-}
-.net-line.dim{stroke:var(--border-2)}
-.net-node{
-  fill:var(--surface);
-  stroke:var(--accent);
-  stroke-width:1.2;
-}
-.net-node.core{
-  fill:#15151c;
-  stroke:var(--accent-2);
-  stroke-width:1.5;
-  filter:drop-shadow(0 0 12px rgba(157,124,255,.5));
-}
-.net-label{
-  font-family:var(--mono);
-  font-size:10.5px;
-  fill:var(--text-2);
-  letter-spacing:.02em;
-}
-.net-label.core{
-  font-family:var(--font);
-  font-size:14px;
-  font-weight:500;
-  fill:var(--text);
-}
-.net-sub{
-  font-family:var(--mono);
-  font-size:9px;
-  fill:var(--text-4);
-  letter-spacing:.04em;
-}
-
-/* ============================================================
-   PROJECTS
-   ============================================================ */
-.projects{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:2px;
-  overflow:hidden;
-}
-@media (max-width:720px){ .projects{grid-template-columns:1fr} }
-
-.project{
-  background:rgba(10,10,14,.72);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  padding:28px 28px 30px;
-  display:flex;flex-direction:column;gap:14px;
-  transition:background .3s var(--ease);
-  min-height:180px;
-}
-.project:hover{background:rgba(17,17,22,.85)}
-
-.project-top{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-}
-.project-idx{
-  font-family:var(--mono);font-size:11.5px;
-  color:var(--text-4);letter-spacing:.02em;
-}
-.project-status{
-  display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:11px;
-  color:var(--text-3);padding:4px 10px;
-  border:1px solid var(--border-2);border-radius:100px;
-  letter-spacing:.02em;
-}
-.project-status::before{
-  content:'';width:5px;height:5px;border-radius:50%;
-  background:var(--accent);
-}
-.project-status.dev::before{background:#a78bfa}
-.project-status.rnd::before{background:#7c6db8}
-
-.project h3{
-  font-size:17px;font-weight:500;letter-spacing:-.015em;
-  color:var(--text);margin:0;
-}
-.project p{
-  font-size:13.5px;color:var(--text-3);
-  line-height:1.6;margin:0;flex:1;
-}
-.project-tags{
-  display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;
-}
-.project-tags span{
-  font-family:var(--mono);font-size:11px;
-  color:var(--text-4);letter-spacing:-.005em;
-}
-
-/* ============================================================
-   TIMELINE
-   ============================================================ */
-.timeline{
-  position:relative;
-  padding:20px 0 10px;
-}
-.timeline-line{
-  position:absolute;
-  top:44px;
-  left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    var(--border-2) 8%,
-    var(--accent-line) 50%,
-    var(--border-2) 92%,
-    transparent 100%);
-}
-.timeline-track{
-  display:grid;
-  grid-template-columns:repeat(9, minmax(0,1fr));
-  gap:12px;
-  position:relative;
-  padding-top:32px;
-}
-@media (max-width:900px){
-  .timeline-track{
-    grid-template-columns:repeat(3, 1fr);
-    gap:24px;
-    padding-top:0;
+@media (max-width: 1100px) {
+  .app { padding: 10px; gap: 8px; }
+  .top { margin-bottom: 4px; }
+  .nav { display: none; }
+  
+  .grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto 1fr 1fr auto; 
+    gap: 8px; 
+    flex: 1; 
+    min-height: 0; 
   }
-  .timeline-line{display:none}
-}
-@media (max-width:520px){
-  .timeline-track{grid-template-columns:repeat(2, 1fr)}
+  
+  .c-profile { grid-column: 1 / 3; grid-row: 1; }
+  .c-radar { grid-column: 1; grid-row: 2; }
+  .c-stack { grid-column: 2; grid-row: 2; }
+  .c-proj { grid-column: 1 / 3; grid-row: 3; min-height: 0; }
+  .c-lang { display: none; }
+  .c-contact { grid-column: 1 / 3; grid-row: 4; }
+
+  .card { padding: 12px; border-radius: var(--md-sys-shape-corner-large); }
+  .hero { margin-bottom: 10px; }
+  .hero h1 { font-size: 24px; margin-bottom: 2px; }
+  .hero p { font-size: 11px; }
+  .hero-meta { font-size: 9px; margin-top: 4px; }
+  
+  .title { font-size: 9px; margin-bottom: 8px; }
+  
+  .list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+  .list li { padding: 6px; border-bottom: none; background: rgba(255,255,255,0.02); border-radius: 6px; flex-direction: row; }
+  .list .k { font-size: 8px; }
+  .list .v { font-size: 10px; }
+
+  .radar-wrap { min-height: 100px; }
+  .radar-label { font-size: 14px; }
+  .radar-val { font-size: 12px; }
+
+  .stack-row { gap: 4px; }
+  .stack-list { gap: 4px; }
+  .stack-list li { padding: 6px 8px; font-size: 10px; }
+  .stack-list .desc { display: none; }
+
+  .proj-list { gap: 4px; }
+  .proj-item { padding: 8px; flex-direction: row; align-items: center; gap: 4px; }
+  .proj-name { font-size: 11px; }
+  .proj-desc { display: none; }
+  .status { font-size: 8px; padding: 2px 6px; }
+  
+  .contact-grid { gap: 4px; grid-template-columns: repeat(4, 1fr); }
+  .contact-item { padding: 6px; flex-direction: column; gap: 4px; justify-content: center; text-align: center; }
+  .ct { display: none; }
+  .ci svg { width: 16px; height: 16px; }
 }
 
-.tl-item{
-  display:flex;flex-direction:column;gap:14px;
-  position:relative;
-}
-.tl-dot{
-  width:9px;height:9px;border-radius:50%;
-  background:var(--bg);
-  border:1.5px solid var(--accent-line);
-  position:relative;
-  margin:0 auto;
-  z-index:1;
-  transition:.4s var(--ease);
-}
-.tl-item:hover .tl-dot{
-  background:var(--accent);
-  border-color:var(--accent-2);
-  box-shadow:0 0 12px rgba(157,124,255,.6);
-}
-.tl-item.current .tl-dot{
-  background:var(--accent);
-  border-color:var(--accent-2);
-  box-shadow:0 0 14px rgba(157,124,255,.7);
-}
-.tl-item.current .tl-dot::after{
-  content:'';
-  position:absolute;inset:-6px;
-  border-radius:50%;
-  border:1px solid rgba(157,124,255,.35);
-  animation:ringPulse 2.6s ease-out infinite;
-}
-@keyframes ringPulse{
-  0%{transform:scale(.8);opacity:.7}
-  100%{transform:scale(1.6);opacity:0}
-}
-
-.tl-text{
-  text-align:center;
-  display:flex;flex-direction:column;gap:5px;
-}
-.tl-num{
-  font-family:var(--mono);font-size:10px;
-  color:var(--text-4);letter-spacing:.05em;
-}
-.tl-name{
-  font-size:13px;font-weight:500;
-  color:var(--text);letter-spacing:-.01em;
-  line-height:1.3;
-}
-.tl-note{
-  font-family:var(--mono);font-size:10.5px;
-  color:var(--text-4);letter-spacing:-.005em;
-}
-.tl-item.current .tl-name{color:var(--accent-2)}
-.tl-item.current .tl-num{color:var(--accent)}
-
-/* ============================================================
-   CONTACT
-   ============================================================ */
-.contact-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);border-radius:2px;
-  overflow:hidden;
-}
-@media (max-width:640px){ .contact-grid{grid-template-columns:1fr} }
-
-.contact-card{
-  background:rgba(10,10,14,.72);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  padding:24px 26px;
-  display:flex;align-items:center;gap:16px;
-  transition:background .3s var(--ease);
-  position:relative;
-}
-.contact-card:hover{background:rgba(17,17,22,.85)}
-
-.contact-icon{
-  width:40px;height:40px;
-  flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--border-2);
-  border-radius:8px;
-  background:rgba(255,255,255,.015);
-  transition:.3s var(--ease);
-  color:var(--text-2);
-}
-.contact-card:hover .contact-icon{
-  border-color:var(--accent-line);
-  background:var(--accent-soft);
-  color:var(--accent-2);
-}
-.contact-icon svg{width:18px;height:18px;display:block}
-
-.contact-meta{
-  display:flex;flex-direction:column;gap:3px;
-  min-width:0;flex:1;
-}
-.contact-label{
-  font-family:var(--mono);
-  font-size:11px;
-  color:var(--text-4);
-  letter-spacing:.03em;
-  text-transform:uppercase;
-}
-.contact-value{
-  font-size:14.5px;
-  color:var(--text);
-  letter-spacing:-.01em;
-  font-weight:400;
-  word-break:break-word;
-  transition:color .3s var(--ease);
-}
-.contact-card:hover .contact-value{color:var(--accent-2)}
-
-.contact-arrow{
-  font-family:var(--mono);
-  color:var(--text-4);
-  font-size:14px;
-  transition:.3s var(--ease);
-  flex-shrink:0;
-}
-.contact-card:hover .contact-arrow{
-  color:var(--accent-2);
-  transform:translate(3px,-3px);
-}
-
-.contact-card.static{cursor:default}
-.contact-card.static:hover .contact-value{color:var(--text)}
-.contact-card.static:hover .contact-icon{
-  border-color:var(--border-2);
-  background:rgba(255,255,255,.015);
-  color:var(--text-2);
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer{border-top:1px solid var(--border);padding:36px 0 44px}
-.footer-inner{
-  max-width:var(--max);margin:0 auto;padding:0 24px;
-  display:flex;flex-wrap:wrap;gap:16px 32px;
-  justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:12px;
-  color:var(--text-4);letter-spacing:-.005em;
-}
-.footer-inner .motto{color:var(--text-3)}
-.footer-inner .accent{color:var(--accent)}
-@media (max-width:640px){ .footer-inner{padding:0 18px} }
-
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none;transition:none}
-  *,*::before,*::after{transition:none !important;animation:none !important}
-  .bg-orb,.bg-grid,.bg-scan,.bg-grain{animation:none !important}
+@media (max-width: 600px) {
+  .app { padding: 8px; gap: 6px; }
+  .grid { 
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto 130px 1fr auto auto; 
+    gap: 6px;
+  }
+  .c-profile { grid-column: 1; grid-row: 1; }
+  .c-radar { grid-column: 1; grid-row: 2; display: flex; min-height: 130px; }
+  .c-proj { grid-column: 1; grid-row: 3; min-height: 0; }
+  .c-stack { grid-column: 1; grid-row: 4; }
+  .c-contact { grid-column: 1; grid-row: 5; }
+  
+  .hero h1 { font-size: 20px; }
+  .hero p { display: none; }
+  
+  .list { grid-template-columns: 1fr 1fr; }
+  
+  .radar-wrap { height: 100%; min-height: 0; }
+  
+  .stack-list { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  .stack-list li { justify-content: center; padding: 6px; }
+  .stack-list .desc { display: none; }
+  
+  .proj-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .proj-item { padding: 6px; flex-direction: column; align-items: flex-start; }
+  
+  .contact-grid { grid-template-columns: repeat(5, 1fr); }
 }
 </style>
 </head>
-
 <body>
 
-<!-- ============================================================
-     ANIMATED BACKGROUND
-     ============================================================ -->
-<div class="bg-anim" aria-hidden="true">
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-orb bg-orb-3"></div>
-  <div class="bg-orb bg-orb-4"></div>
-  <div class="bg-grid"></div>
-  <div class="bg-scan"></div>
-  <div class="bg-grain"></div>
-  <div class="bg-vignette"></div>
+<div class="bg">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <div class="orb o4"></div>
+  <div class="m3-shape shape-star"></div>
+  <div class="m3-shape shape-pill"></div>
+  <div class="m3-shape shape-circle"></div>
 </div>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="logo" href="#top">
-      <span class="dot"></span>
-      xD <span class="node">/ xD-4RMY</span>
-    </a>
-    <div class="nav-links">
-      <a href="#profile">Profile</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#journey">Journey</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</nav>
+<div class="app">
+  <header class="top">
+    <div class="brand"><span class="dot"></span> xD</div>
+    <nav class="nav">
+      <a href="#">Profile</a>
+      <a href="#">Expertise</a>
+      <a href="#">Systems</a>
+      <a href="#">Works</a>
+    </nav>
+  </header>
 
-<main id="top">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="eyebrow">
-        <span class="pill"></span>
-        Node xD-4RMY · Online
-      </div>
-      <h1>xD</h1>
-      <p class="hero-tagline">
-        <strong>Developer, AI builder, digital creator.</strong>
-        I build AI systems, agents, bots and small machines — mostly at night,
-        mostly alone, mostly because a question needed an answer.
-      </p>
-      <div class="hero-meta">
-        <span><span class="k"></span>Iran</span>
-        <span><span class="k"></span>16 years old</span>
-        <span><span class="k"></span>Arch Linux</span>
-        <span><span class="k"></span>Building since forever</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROFILE -->
-  <section id="profile">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">01</span>
-        <h2 class="section-title">Profile</h2>
-        <span class="section-note">// IDENTITY · PERSONAL · LANGUAGES</span>
-      </div>
-
-      <div class="info">
-        <div class="info-block reveal">
-          <h3>Identity</h3>
-          <ul class="info-rows">
-            <li><span class="k">handle</span><span class="v accent">xD</span></li>
-            <li><span class="k">node</span><span class="v">xD-4RMY</span></li>
-            <li><span class="k">studio</span><span class="v">xD-Studio</span></li>
-            <li><span class="k">role</span><span class="v">Developer · AI Builder</span></li>
-            <li><span class="k">country</span><span class="v">Iran · <span class="fa">ایران</span></span></li>
-            <li><span class="k">born</span><span class="v">15 <span class="fa">مهر</span> 1389</span></li>
-            <li><span class="k">born (gregorian)</span><span class="v">October 7, 2010</span></li>
-            <li><span class="k">age</span><span class="v">16</span></li>
-            <li>
-              <span class="k">system</span>
-              <span class="v">Arch Linux <span class="btw">(btw)</span></span>
-            </li>
-          </ul>
+  <main class="grid">
+    
+    <div class="col c-profile">
+      <section class="card">
+        <div class="hero">
+          <h1>xD</h1>
+          <p>AI Systems, Infrastructure & Server Operator</p>
+          <span class="hero-meta">IRAN · 16 Y/O</span>
         </div>
-
-        <div class="info-block reveal">
-          <h3>Languages</h3>
-          <div class="lang-list">
-
-            <div class="lang-item">
-              <div class="lang-head">
-                <div>
-                  <div class="lang-name">Persian</div>
-                  <div class="lang-native">فارسی</div>
-                </div>
-                <div class="lang-level">Level <b>Native</b></div>
-              </div>
-              <div class="lang-bar"><i style="width:100%"></i></div>
-            </div>
-
-            <div class="lang-item">
-              <div class="lang-head">
-                <div>
-                  <div class="lang-name">English</div>
-                  <div class="lang-native en">English</div>
-                </div>
-                <div class="lang-level">Level <b>Fluent</b></div>
-              </div>
-              <div class="lang-bar"><i style="width:88%"></i></div>
-            </div>
-
-            <div class="lang-item">
-              <div class="lang-head">
-                <div>
-                  <div class="lang-name">Japanese</div>
-                  <div class="lang-native jp">日本語</div>
-                </div>
-                <div class="lang-level">Level <b>Learning</b></div>
-              </div>
-              <div class="lang-bar"><i style="width:32%"></i></div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+        <h3 class="title">Identity</h3>
+        <ul class="list">
+          <li><span class="k">Node</span><span class="v">xD-4RMY</span></li>
+          <li><span class="k">Studio</span><span class="v">xD-Studio</span></li>
+          <li><span class="k">Role</span><span class="v">Developer & Builder</span></li>
+          <li><span class="k">Origin</span><span class="v">Iran</span></li>
+          <li><span class="k">Born</span><span class="v">2010.10.07</span></li>
+          <li><span class="k">System</span><span class="v">Arch <span class="btw">(btw)</span></span></li>
+        </ul>
+      </section>
     </div>
-  </section>
 
-  <!-- SKILL RADAR -->
-  <section id="skills">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">02</span>
-        <h2 class="section-title">Skill Distribution</h2>
-        <span class="section-note">// MEASURED BY DEPTH OF PRACTICE</span>
-      </div>
-
-      <div class="chart-grid">
-
-        <div class="chart-panel reveal">
-          <span class="chart-caption">RADAR · 8 AXES · 0—100</span>
-          <svg viewBox="0 0 500 500" role="img" aria-label="Radar chart of skills across 8 areas">
-
+    <div class="col c-radar">
+      <section class="card flex-1">
+        <h3 class="title">Expertise <span>Depth</span></h3>
+        <div class="radar-wrap">
+          <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
             <g class="radar-grid">
               <circle cx="250" cy="250" r="45"/>
               <circle cx="250" cy="250" r="90"/>
               <circle cx="250" cy="250" r="135"/>
               <circle cx="250" cy="250" r="180"/>
             </g>
-
             <g class="radar-axis">
-              <line x1="250" y1="250" x2="250"   y2="70"/>
+              <line x1="250" y1="250" x2="250" y2="70"/>
               <line x1="250" y1="250" x2="377.3" y2="122.7"/>
-              <line x1="250" y1="250" x2="430"   y2="250"/>
+              <line x1="250" y1="250" x2="430" y2="250"/>
               <line x1="250" y1="250" x2="377.3" y2="377.3"/>
-              <line x1="250" y1="250" x2="250"   y2="430"/>
+              <line x1="250" y1="250" x2="250" y2="430"/>
               <line x1="250" y1="250" x2="122.7" y2="377.3"/>
-              <line x1="250" y1="250" x2="70"    y2="250"/>
+              <line x1="250" y1="250" x2="70" y2="250"/>
               <line x1="250" y1="250" x2="122.7" y2="122.7"/>
             </g>
-
-            <polygon class="radar-poly"
-              points="250,88 358,142 421,250 362,362 250,376 167,333 120,250 151,151"/>
-
-            <g>
-              <circle class="radar-dot" cx="250" cy="88"  r="3.5"/>
-              <circle class="radar-dot" cx="358" cy="142" r="3.5"/>
-              <circle class="radar-dot" cx="421" cy="250" r="3.5"/>
-              <circle class="radar-dot" cx="362" cy="362" r="3.5"/>
-              <circle class="radar-dot" cx="250" cy="376" r="3.5"/>
-              <circle class="radar-dot" cx="167" cy="333" r="3.5"/>
-              <circle class="radar-dot" cx="120" cy="250" r="3.5"/>
-              <circle class="radar-dot" cx="151" cy="151" r="3.5"/>
-            </g>
-
-            <g>
-              <text class="radar-label big" x="250" y="52" text-anchor="middle">AI &amp; AGENTS</text>
-              <text class="radar-val" x="250" y="66" text-anchor="middle">90</text>
-
-              <text class="radar-label" x="392" y="112" text-anchor="start">WEB</text>
-              <text class="radar-val" x="392" y="126" text-anchor="start">85</text>
-
-              <text class="radar-label big" x="444" y="253" text-anchor="start">BOTS</text>
-              <text class="radar-val" x="444" y="267" text-anchor="start">95</text>
-
-              <text class="radar-label" x="392" y="392" text-anchor="start">AUTOMATION</text>
-              <text class="radar-val" x="392" y="406" text-anchor="start">88</text>
-
-              <text class="radar-label" x="250" y="458" text-anchor="middle">ROBOTICS</text>
-              <text class="radar-val" x="250" y="472" text-anchor="middle">70</text>
-
-              <text class="radar-label" x="108" y="392" text-anchor="end">ELECTRICAL</text>
-              <text class="radar-val" x="108" y="406" text-anchor="end">65</text>
-
-              <text class="radar-label" x="56" y="253" text-anchor="end">VISION</text>
-              <text class="radar-val" x="56" y="267" text-anchor="end">72</text>
-
-              <text class="radar-label" x="108" y="112" text-anchor="end">OSINT</text>
-              <text class="radar-val" x="108" y="126" text-anchor="end">78</text>
-            </g>
+            <polygon class="radar-poly" points="250,88 358,142 421,250 362,362 250,376 167,333 120,250 151,151"/>
+            <circle class="radar-dot" cx="250" cy="88" r="4"/>
+            <circle class="radar-dot" cx="358" cy="142" r="4"/>
+            <circle class="radar-dot" cx="421" cy="250" r="4"/>
+            <circle class="radar-dot" cx="362" cy="362" r="4"/>
+            <circle class="radar-dot" cx="250" cy="376" r="4"/>
+            <circle class="radar-dot" cx="167" cy="333" r="4"/>
+            <circle class="radar-dot" cx="120" cy="250" r="4"/>
+            <circle class="radar-dot" cx="151" cy="151" r="4"/>
+            <text class="radar-label" x="250" y="50" text-anchor="middle">AI SYSTEMS</text>
+            <text class="radar-val" x="250" y="65" text-anchor="middle">90</text>
+            <text class="radar-label" x="395" y="110" text-anchor="start">WEB</text>
+            <text class="radar-val" x="395" y="125" text-anchor="start">85</text>
+            <text class="radar-label" x="445" y="254" text-anchor="start">BOTS</text>
+            <text class="radar-val" x="445" y="269" text-anchor="start">95</text>
+            <text class="radar-label" x="395" y="395" text-anchor="start">AUTOMATION</text>
+            <text class="radar-val" x="395" y="410" text-anchor="start">88</text>
+            <text class="radar-label" x="250" y="460" text-anchor="middle">ROBOTICS</text>
+            <text class="radar-val" x="250" y="475" text-anchor="middle">70</text>
+            <text class="radar-label" x="105" y="395" text-anchor="end">HARDWARE</text>
+            <text class="radar-val" x="105" y="410" text-anchor="end">65</text>
+            <text class="radar-label" x="55" y="254" text-anchor="end">VISION</text>
+            <text class="radar-val" x="55" y="269" text-anchor="end">72</text>
+            <text class="radar-label" x="105" y="110" text-anchor="end">INTEL</text>
+            <text class="radar-val" x="105" y="125" text-anchor="end">78</text>
           </svg>
         </div>
-
-        <div class="chart-legend reveal">
-          <h3>Reading the chart</h3>
-          <p>
-            Depth of practice per area, not years — a snapshot of where
-            my time actually goes. Bot development and AI sit at the top
-            because they're what I build every day; robotics and electrical
-            work are the frontier I'm pushing into right now.
-          </p>
-        </div>
-
-      </div>
+      </section>
     </div>
-  </section>
 
-  <!-- STACK & TOOLS -->
-  <section id="stack">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">03</span>
-        <h2 class="section-title">Stack &amp; Tools</h2>
-        <span class="section-note">// PROGRAMMING · TOOLS · AREAS</span>
-      </div>
-
-      <div class="cols-3">
-
-        <div class="skill-col reveal">
-          <h3>Programming</h3>
-          <ul class="skill-list">
-            <li><span class="name">Python</span><span class="desc">AI · Bots · Automation</span></li>
-            <li><span class="name">JavaScript</span><span class="desc">Web · Frontend</span></li>
-            <li><span class="name">HTML / CSS</span><span class="desc">Interfaces</span></li>
-            <li><span class="name">Bash / Shell</span><span class="desc">Linux · Automation</span></li>
-            <li><span class="name">SQL</span><span class="desc">Databases</span></li>
-            <li><span class="name">C++ / Arduino</span><span class="desc">ESP32 · Robotics</span></li>
-          </ul>
-        </div>
-
-        <div class="skill-col reveal">
-          <h3>Tools &amp; Environment</h3>
-          <ul class="skill-list">
-            <li>
-              <span class="name">Arch Linux</span>
-              <span class="desc">Daily OS <span style="color:var(--text-4);font-style:italic">(btw)</span></span>
-            </li>
-            <li><span class="name">Git / GitHub</span><span class="desc">Version control</span></li>
-            <li><span class="name">LLM Tooling</span><span class="desc">Local models</span></li>
-            <li><span class="name">Telegram API</span><span class="desc">Bot framework</span></li>
-            <li><span class="name">ESP32 / Arduino</span><span class="desc">Hardware</span></li>
-            <li><span class="name">Self-hosting</span><span class="desc">Local services</span></li>
-          </ul>
-        </div>
-
-        <div class="skill-col reveal">
-          <h3>Areas of Work</h3>
-          <div class="areas">
-            <span>AI &amp; Agents</span>
-            <span>Bot Development</span>
-            <span>Web Development</span>
-            <span>Automation</span>
-            <span>Robotics</span>
-            <span>Electrical Work</span>
-            <span>Computer Vision</span>
-            <span>OSINT</span>
-            <span>Digital Art</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="col c-proj">
+      <section class="card flex-1">
+        <h3 class="title">Selected Works</h3>
+        <ul class="proj-list">
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Javidnaman (BETA)</span>
+              <span class="proj-desc">Tribute bot honoring fallen heroes. Features a 3,300+ name database, automated memorial posting, and full group management.</span>
+            </div>
+            <span class="status beta">Beta</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Minecraft Server Network</span>
+              <span class="proj-desc">Custom high-performance server. Deep plugin development, network optimization (Paper/Spigot), and full community infrastructure.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">xD AI Bot</span>
+              <span class="proj-desc">Autonomous Telegram assistant with local LLM integration.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">MilkyChanAI</span>
+              <span class="proj-desc">Conversational agent with persistent memory and persona.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">xD OSINT Bot</span>
+              <span class="proj-desc">OSINT aggregation tool with conversational querying.</span>
+            </div>
+            <span class="status dev">Dev</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">xD Database Bot</span>
+              <span class="proj-desc">Natural language interface for database management.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+        </ul>
+      </section>
     </div>
-  </section>
 
-  <!-- NETWORK -->
-  <section id="network">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">04</span>
-        <h2 class="section-title">Technology Network</h2>
-        <span class="section-note">// HOW THE STACK CONNECTS</span>
-      </div>
-
-      <div class="chart-grid">
-
-        <div class="chart-panel reveal">
-          <span class="chart-caption">GRAPH · NODE MAP</span>
-          <svg viewBox="0 0 500 500" role="img" aria-label="Network of technologies around xD">
-
-            <circle cx="250" cy="250" r="180" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-            <circle cx="250" cy="250" r="110" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-
-            <g class="net-line dim">
-              <line x1="250" y1="250" x2="250" y2="90"/>
-              <line x1="250" y1="250" x2="382" y2="140"/>
-              <line x1="250" y1="250" x2="410" y2="290"/>
-              <line x1="250" y1="250" x2="340" y2="410"/>
-              <line x1="250" y1="250" x2="250" y2="410"/>
-              <line x1="250" y1="250" x2="160" y2="410"/>
-              <line x1="250" y1="250" x2="90" y2="290"/>
-              <line x1="250" y1="250" x2="118" y2="140"/>
-            </g>
-
-            <g class="net-line">
-              <line x1="250" y1="90"  x2="382" y2="140"/>
-              <line x1="382" y1="140" x2="410" y2="290"/>
-              <line x1="410" y1="290" x2="340" y2="410"/>
-              <line x1="340" y1="410" x2="250" y2="410"/>
-              <line x1="250" y1="410" x2="160" y2="410"/>
-              <line x1="160" y1="410" x2="90"  y2="290"/>
-              <line x1="90"  y1="290" x2="118" y2="140"/>
-              <line x1="118" y1="140" x2="250" y2="90"/>
-              <line x1="250" y1="90"  x2="410" y2="290" style="stroke-dasharray:2 3"/>
-              <line x1="382" y1="140" x2="90"  y2="290" style="stroke-dasharray:2 3"/>
-            </g>
-
-            <g>
-              <circle class="net-node" cx="250" cy="90"  r="22"/>
-              <text class="net-label" x="250" y="94"  text-anchor="middle">AI</text>
-
-              <circle class="net-node" cx="382" cy="140" r="22"/>
-              <text class="net-label" x="382" y="144" text-anchor="middle">WEB</text>
-
-              <circle class="net-node" cx="410" cy="290" r="22"/>
-              <text class="net-label" x="410" y="294" text-anchor="middle">BOTS</text>
-
-              <circle class="net-node" cx="340" cy="410" r="22"/>
-              <text class="net-label" x="340" y="414" text-anchor="middle">AUTO</text>
-
-              <circle class="net-node" cx="250" cy="410" r="22"/>
-              <text class="net-label" x="250" y="414" text-anchor="middle">LINUX</text>
-
-              <circle class="net-node" cx="160" cy="410" r="22"/>
-              <text class="net-label" x="160" y="414" text-anchor="middle">ROBO</text>
-
-              <circle class="net-node" cx="90"  cy="290" r="22"/>
-              <text class="net-label" x="90"  y="294" text-anchor="middle">VISION</text>
-
-              <circle class="net-node" cx="118" cy="140" r="22"/>
-              <text class="net-label" x="118" y="144" text-anchor="middle">DATA</text>
-            </g>
-
-            <circle class="net-node core" cx="250" cy="250" r="42"/>
-            <text class="net-label core" x="250" y="255" text-anchor="middle">xD</text>
-            <text class="net-sub" x="250" y="272" text-anchor="middle">xD-4RMY</text>
-
-            <g>
-              <text class="net-sub" x="250" y="60" text-anchor="middle">AGENTS · LLM</text>
-              <text class="net-sub" x="410" y="122" text-anchor="middle">FRONTEND · API</text>
-              <text class="net-sub" x="438" y="294" text-anchor="middle">TELEGRAM</text>
-              <text class="net-sub" x="368" y="442" text-anchor="middle">SCRIPTS</text>
-              <text class="net-sub" x="250" y="442" text-anchor="middle">ARCH · SHELL</text>
-              <text class="net-sub" x="132" y="442" text-anchor="middle">ESP32 · MOTORS</text>
-              <text class="net-sub" x="62"  y="294" text-anchor="middle">CAMERAS</text>
-              <text class="net-sub" x="90"  y="122" text-anchor="middle">SQL · OSINT</text>
-            </g>
-          </svg>
+    <div class="col c-lang">
+      <section class="card">
+        <h3 class="title">Linguistics</h3>
+        <div class="lang-item">
+          <div class="lang-top"><span>Persian</span><span>Native</span></div>
+          <div class="lang-track"><div class="lang-fill" style="width:100%"></div></div>
         </div>
-
-        <div class="chart-legend reveal">
-          <h3>One connected system</h3>
-          <p>
-            These areas aren't separate skills — they feed into each other.
-            AI and agents sit at the center of the work. Web and bots are how
-            things become usable. Linux and automation keep them running.
-            Vision, robotics and electrical work are the physical edge —
-            where software has to actually move something.
-          </p>
+        <div class="lang-item">
+          <div class="lang-top"><span>English</span><span>Fluent</span></div>
+          <div class="lang-track"><div class="lang-fill" style="width:88%"></div></div>
         </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">05</span>
-        <h2 class="section-title">Projects</h2>
-        <span class="section-note">// BUILT &amp; BUILDING</span>
-      </div>
-
-      <div class="projects">
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">01</span>
-            <span class="project-status">Live</span>
-          </div>
-          <h3>xD AI Bot</h3>
-          <p>A Telegram AI assistant built around a local core. Conversation, task handling, and delegation — running as a personal tool first.</p>
-          <div class="project-tags">
-            <span>Telegram API</span>·<span>Python</span>·<span>LLM</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">02</span>
-            <span class="project-status">Live</span>
-          </div>
-          <h3>MilkyChanAI</h3>
-          <p>An AI character with personality, memory and voice — making a model feel like someone instead of something.</p>
-          <div class="project-tags">
-            <span>Character</span>·<span>Memory</span>·<span>Chat</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">03</span>
-            <span class="project-status dev">In Development</span>
-          </div>
-          <h3>xD AI OSINT Bot</h3>
-          <p>Collects and organises publicly available information, then exposes it through a conversational interface.</p>
-          <div class="project-tags">
-            <span>OSINT</span>·<span>Parsing</span>·<span>Telegram</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">04</span>
-            <span class="project-status">Live</span>
-          </div>
-          <h3>xD Database Bot</h3>
-          <p>Store, retrieve and manage records from inside a chat. Removes the friction between a question and its answer.</p>
-          <div class="project-tags">
-            <span>Database</span>·<span>CRUD</span>·<span>Tooling</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">05</span>
-            <span class="project-status">Beta</span>
-          </div>
-          <h3>xD Monitor</h3>
-          <p>A quiet monitoring layer. Watches services and endpoints, and reports when something changes or breaks.</p>
-          <div class="project-tags">
-            <span>Monitoring</span>·<span>Self-hosted</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">06</span>
-            <span class="project-status rnd">R&amp;D</span>
-          </div>
-          <h3>Personal AI / Agent</h3>
-          <p>Ongoing design around a personal agent — local, private, persistent. Memory on disk, tools that belong to the user.</p>
-          <div class="project-tags">
-            <span>Agents</span>·<span>Local inference</span>·<span>Memory</span>
-          </div>
-        </article>
-
-        <article class="project reveal">
-          <div class="project-top">
-            <span class="project-idx">07</span>
-            <span class="project-status rnd">R&amp;D</span>
-          </div>
-          <h3>Robotics &amp; Electrical Experiments</h3>
-          <p>Connecting vision models to physical hardware — camera, controller, motor. From pixels to movement, wired by hand.</p>
-          <div class="project-tags">
-            <span>ESP32</span>·<span>Vision</span>·<span>Electrical</span>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TIMELINE -->
-  <section id="journey">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">06</span>
-        <h2 class="section-title">Journey</h2>
-        <span class="section-note">// SEQUENCE OF INTERESTS</span>
-      </div>
-
-      <div class="timeline reveal">
-        <div class="timeline-line"></div>
-        <div class="timeline-track">
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">01</span>
-              <span class="tl-name">Web Dev</span>
-              <span class="tl-note">first pages</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">02</span>
-              <span class="tl-name">Programming</span>
-              <span class="tl-note">logic</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">03</span>
-              <span class="tl-name">Linux</span>
-              <span class="tl-note">ownership</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">04</span>
-              <span class="tl-name">Bots</span>
-              <span class="tl-note">real users</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">05</span>
-              <span class="tl-name">AI</span>
-              <span class="tl-note">systems</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">06</span>
-              <span class="tl-name">Local AI</span>
-              <span class="tl-note">privacy</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">07</span>
-              <span class="tl-name">Robotics</span>
-              <span class="tl-note">physical</span>
-            </div>
-          </div>
-
-          <div class="tl-item">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">08</span>
-              <span class="tl-name">Japanese</span>
-              <span class="tl-note">日本語</span>
-            </div>
-          </div>
-
-          <div class="tl-item current">
-            <div class="tl-dot"></div>
-            <div class="tl-text">
-              <span class="tl-num">09</span>
-              <span class="tl-name">CS &amp; AI</span>
-              <span class="tl-note">next</span>
-            </div>
-          </div>
-
+        <div class="lang-item">
+          <div class="lang-top"><span>Japanese</span><span>Learning</span></div>
+          <div class="lang-track"><div class="lang-fill" style="width:32%"></div></div>
         </div>
-      </div>
+      </section>
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">07</span>
-        <h2 class="section-title">Contact</h2>
-        <span class="section-note">// OPEN CHANNELS</span>
-      </div>
-
-      <div class="contact-grid reveal">
-
-        <a class="contact-card" href="https://t.me/xD_4RMY" target="_blank" rel="noopener noreferrer">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21.94 4.39 18.9 19.06c-.23 1.01-.83 1.26-1.68.79l-4.65-3.43-2.24 2.16c-.25.25-.46.46-.94.46l.33-4.72 8.6-7.77c.37-.33-.08-.51-.58-.19l-10.63 6.7-4.58-1.44c-1-.31-1.02-1 .21-1.48L20.1 3.1c.83-.31 1.55.19 1.84 1.29z"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">Telegram</span>
-            <span class="contact-value">@xD_4RMY</span>
-          </span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="contact-card" href="https://t.me/xProtocolChannel" target="_blank" rel="noopener noreferrer">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 11v2a2 2 0 0 0 2 2h2l4 5V4L7 9H5a2 2 0 0 0-2 2z"/>
-              <path d="M16 8a5 5 0 0 1 0 8"/>
-              <path d="M19 5a9 9 0 0 1 0 14"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">Channel</span>
-            <span class="contact-value">xProtocol</span>
-          </span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="contact-card" href="https://t.me/xD_4RMYPlayList" target="_blank" rel="noopener noreferrer">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 18V5l12-2v13"/>
-              <circle cx="6" cy="18" r="3"/>
-              <circle cx="18" cy="16" r="3"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">Playlist</span>
-            <span class="contact-value">xD_4RMY Playlist</span>
-          </span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="contact-card" href="https://github.com/xd-4rmy" target="_blank" rel="noopener noreferrer">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.88-1.37-3.88-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.04 11.04 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">GitHub</span>
-            <span class="contact-value">xd-4rmy</span>
-          </span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <a class="contact-card" href="https://www.linkedin.com/in/xd-4rmy-5a1a93424/" target="_blank" rel="noopener noreferrer">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">LinkedIn</span>
-            <span class="contact-value">in/xd-4rmy</span>
-          </span>
-          <span class="contact-arrow" aria-hidden="true">↗</span>
-        </a>
-
-        <div class="contact-card static">
-          <span class="contact-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M12 7v5l3 2"/>
-            </svg>
-          </span>
-          <span class="contact-meta">
-            <span class="contact-label">Availability</span>
-            <span class="contact-value">Open to collabs &amp; interesting work</span>
-          </span>
+    <div class="col c-stack">
+      <section class="card">
+        <h3 class="title">Environment</h3>
+        <div class="stack-row">
+          <div class="stack-col">
+            <ul class="stack-list">
+              <li><span>Python</span><span class="desc">AI / Logic</span></li>
+              <li><span>JavaScript</span><span class="desc">Web / UI</span></li>
+              <li><span>HTML/CSS</span><span class="desc">Structure</span></li>
+              <li><span>Java</span><span class="desc">Minecraft</span></li>
+              <li><span>SQL</span><span class="desc">Data</span></li>
+              <li><span>C++</span><span class="desc">Hardware</span></li>
+            </ul>
+          </div>
+          <div class="stack-col">
+            <ul class="stack-list">
+              <li><span>Arch Linux</span><span class="desc">OS</span></li>
+              <li><span>Git</span><span class="desc">VCS</span></li>
+              <li><span>LLM Tooling</span><span class="desc">Inference</span></li>
+              <li><span>TG API</span><span class="desc">Interface</span></li>
+              <li><span>ESP32</span><span class="desc">Sensors</span></li>
+              <li><span>Paper/Spigot</span><span class="desc">Server</span></li>
+            </ul>
+          </div>
         </div>
-
-      </div>
+      </section>
     </div>
-  </section>
 
-</main>
+    <div class="col c-contact">
+      <section class="card">
+        <h3 class="title">Connect</h3>
+        <div class="contact-grid">
+          <a class="contact-item" href="https://t.me/xD_4RMY" target="_blank">
+            <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.39 18.9 19.06c-.23 1.01-.83 1.26-1.68.79l-4.65-3.43-2.24 2.16c-.25.25-.46.46-.94.46l.33-4.72 8.6-7.77c.37-.33-.08-.51-.58-.19l-10.63 6.7-4.58-1.44c-1-.31-1.02-1 .21-1.48L20.1 3.1c.83-.31 1.55.19 1.84 1.29z"/></svg></span>
+            <span class="ct"><span class="cl">Telegram</span><span class="cv">@xD_4RMY</span></span>
+          </a>
+          <a class="contact-item" href="https://t.me/xProtocolChannel" target="_blank">
+            <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a2 2 0 0 0 2 2h2l4 5V4L7 9H5a2 2 0 0 0-2 2z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M19 5a9 9 0 0 1 0 14"/></svg></span>
+            <span class="ct"><span class="cl">Channel</span><span class="cv">xProtocol</span></span>
+          </a>
+          <a class="contact-item" href="https://t.me/xD_4RMYPlayList" target="_blank">
+            <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <span class="ct"><span class="cl">Playlist</span><span class="cv">xD_4RMY</span></span>
+          </a>
+          <a class="contact-item" href="https://github.com/xd-4rmy" target="_blank">
+            <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.88-1.37-3.88-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.04 11.04 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></span>
+            <span class="ct"><span class="cl">GitHub</span><span class="cv">xd-4rmy</span></span>
+          </a>
+          <a class="contact-item" href="https://www.linkedin.com/in/xd-4rmy-5a1a93424/" target="_blank">
+            <span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94v5.66H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></span>
+            <span class="ct"><span class="cl">LinkedIn</span><span class="cv">xd-4rmy</span></span>
+          </a>
+          <div class="contact-item">
+            <span class="ci" style="color:var(--md-sys-color-on-surface-variant)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span class="ct"><span class="cl">Status</span><span class="cv">Available</span></span>
+          </div>
+        </div>
+      </section>
+    </div>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <span>© xD · xD-4RMY · xD-Studio</span>
-    <span class="motto">Build it. Understand it. Make it yours.</span>
-    <span class="accent">// end of readout</span>
-  </div>
-</footer>
-
-<script>
-(function(){
-  "use strict";
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce){
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-    return;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting){
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-})();
-</script>
+  </main>
+</div>
 
 </body>
 </html>
