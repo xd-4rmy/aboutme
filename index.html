@@ -9,21 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --md-sys-color-background: #040607;
-  --md-sys-color-surface: rgba(13, 13, 18, 0.65);
-  --md-sys-color-surface-hover: rgba(21, 21, 28, 0.85);
-  --md-sys-color-primary: #BF40FA;
-  --md-sys-color-primary-container: rgba(191, 64, 250, 0.15);
-  --md-sys-color-secondary: #4928C2;
-  --md-sys-color-tertiary: #5B2A62;
-  --md-sys-color-on-background: #E3D9FC;
-  --md-sys-color-on-surface-variant: #9E96B3;
-  --md-sys-color-outline: rgba(227, 217, 252, 0.15);
-  --md-sys-color-outline-variant: rgba(227, 217, 252, 0.05);
-  --md-sys-shape-corner-extra-large: 28px;
-  --md-sys-shape-corner-large: 20px;
-  --md-sys-shape-corner-medium: 12px;
-  --md-sys-shape-corner-full: 999px;
+  --bg: #040607;
+  --surface: rgba(13, 13, 18, 0.65);
+  --surface-hover: rgba(21, 21, 28, 0.85);
+  --primary: #BF40FA;
+  --primary-container: rgba(191, 64, 250, 0.15);
+  --secondary: #4928C2;
+  --tertiary: #5B2A62;
+  --text: #E3D9FC;
+  --text-muted: #9E96B3;
+  --outline: rgba(227, 217, 252, 0.15);
+  --outline-variant: rgba(227, 217, 252, 0.05);
+  --r-xl: 28px;
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-full: 999px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -31,15 +31,15 @@ html, body {
   margin: 0; 
   height: 100dvh; 
   overflow: hidden; 
-  background-color: var(--md-sys-color-background); 
-  color: var(--md-sys-color-on-background); 
+  background-color: var(--bg); 
+  color: var(--text); 
   font-family: 'Inter', sans-serif; 
   -webkit-font-smoothing: antialiased; 
 }
 a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar { display: none; }
 
-.bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--md-sys-color-background); }
+.bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--bg); }
 .orb { 
   position: absolute; 
   filter: blur(90px); 
@@ -47,10 +47,10 @@ a { color: inherit; text-decoration: none; }
   mix-blend-mode: screen;
   animation: lavaFlow 20s infinite alternate ease-in-out; 
 }
-.o1 { width: 80vw; height: 80vw; top: -20%; left: -15%; background: var(--md-sys-color-primary); animation-duration: 25s; }
-.o2 { width: 70vw; height: 70vw; bottom: -20%; right: -15%; background: var(--md-sys-color-secondary); animation-delay: -7s; animation-duration: 28s; }
+.o1 { width: 80vw; height: 80vw; top: -20%; left: -15%; background: var(--primary); animation-duration: 25s; }
+.o2 { width: 70vw; height: 70vw; bottom: -20%; right: -15%; background: var(--secondary); animation-delay: -7s; animation-duration: 28s; }
 .o3 { width: 60vw; height: 60vw; top: 10%; left: 30%; background: #FF5EDB; animation-delay: -12s; animation-duration: 32s; }
-.o4 { width: 55vw; height: 55vw; bottom: 0%; left: -10%; background: var(--md-sys-color-tertiary); animation-delay: -18s; animation-duration: 26s; }
+.o4 { width: 55vw; height: 55vw; bottom: 0%; left: -10%; background: var(--tertiary); animation-delay: -18s; animation-duration: 26s; }
 
 @keyframes lavaFlow { 
   0% { transform: translate(0, 0) scale(1); border-radius: 50% 50% 50% 50%; } 
@@ -61,7 +61,7 @@ a { color: inherit; text-decoration: none; }
 
 .m3-shape {
   position: absolute;
-  background: var(--md-sys-color-on-background);
+  background: var(--text);
   opacity: 0.15;
   animation: floatShape 15s infinite ease-in-out alternate;
   z-index: 1;
@@ -70,15 +70,15 @@ a { color: inherit; text-decoration: none; }
   width: 140px; height: 140px;
   clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
   top: 10%; right: 5%;
-  background: var(--md-sys-color-primary);
+  background: var(--primary);
   opacity: 0.3;
   animation-duration: 20s;
 }
 .shape-pill {
   width: 120px; height: 60px;
-  border-radius: var(--md-sys-shape-corner-full);
+  border-radius: var(--r-full);
   bottom: 15%; left: 5%;
-  background: var(--md-sys-color-secondary);
+  background: var(--secondary);
   opacity: 0.3;
   animation-duration: 18s;
   animation-delay: -5s;
@@ -87,7 +87,7 @@ a { color: inherit; text-decoration: none; }
   width: 80px; height: 80px;
   border-radius: 50%;
   top: 40%; right: 20%;
-  background: var(--md-sys-color-tertiary);
+  background: var(--tertiary);
   opacity: 0.4;
   animation-duration: 12s;
   animation-delay: -8s;
@@ -111,84 +111,83 @@ a { color: inherit; text-decoration: none; }
 }
 .top { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; padding: 0 8px; }
 .brand { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--md-sys-color-primary); box-shadow: 0 0 12px var(--md-sys-color-primary); }
-.nav { display: flex; gap: 20px; font-size: 13px; color: var(--md-sys-color-on-surface-variant); font-weight: 500; }
-.nav a:hover { color: var(--md-sys-color-on-background); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px var(--primary); }
+.nav { display: flex; gap: 20px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.nav a:hover { color: var(--text); }
 
 .grid { display: grid; grid-template-columns: 1fr 1.1fr 1.2fr; gap: 12px; flex: 1; min-height: 0; }
 .col { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 
 .card { 
-  background: var(--md-sys-color-surface); 
+  background: var(--surface); 
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--md-sys-color-outline);
-  border-radius: var(--md-sys-shape-corner-extra-large); 
+  border: 1px solid var(--outline);
+  border-radius: var(--r-xl); 
   padding: 20px; 
   display: flex; flex-direction: column; overflow: hidden; 
   transition: background 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
-.card:hover { background: var(--md-sys-color-surface-hover); }
+.card:hover { background: var(--surface-hover); }
 .flex-1 { flex: 1; }
 
-.title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-primary); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 500;}
-.title span { color: var(--md-sys-color-on-surface-variant); font-size: 10px; }
+.title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 500;}
+.title span { color: var(--text-muted); font-size: 10px; }
 
 .hero { margin-bottom: 20px; }
 .hero h1 { font-size: 36px; font-weight: 600; letter-spacing: -0.04em; margin: 0 0 8px; color: #FFF; }
-.hero p { color: var(--md-sys-color-on-surface-variant); font-size: 13px; margin: 0; line-height: 1.5; font-weight: 500; }
-.hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-primary); margin-top: 10px; display: block; letter-spacing: 0.05em;}
+.hero p { color: var(--text-muted); font-size: 13px; margin: 0; line-height: 1.5; font-weight: 500; }
+.hero-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--primary); margin-top: 10px; display: block; letter-spacing: 0.05em;}
 
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.list li { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding-bottom: 8px; border-bottom: 1px solid var(--md-sys-color-outline-variant); }
+.list li { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding-bottom: 8px; border-bottom: 1px solid var(--outline-variant); }
 .list li:last-child { border-bottom: none; padding-bottom: 0; }
-.list .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--md-sys-color-on-surface-variant); }
+.list .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); }
 .list .v { font-weight: 500; text-align: right; }
-.hl { color: var(--md-sys-color-primary); }
-.btw { color: var(--md-sys-color-on-surface-variant); font-size: 10px; font-style: italic; margin-left: 4px; }
+.btw { color: var(--text-muted); font-size: 10px; font-style: italic; margin-left: 4px; }
 
 .lang-item { margin-bottom: 12px; }
 .lang-item:last-child { margin-bottom: 0; }
 .lang-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; font-weight: 500; }
-.lang-top span:last-child { color: var(--md-sys-color-primary); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-.lang-track { height: 4px; background: var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-full); overflow: hidden; }
-.lang-fill { height: 100%; background: var(--md-sys-color-primary); border-radius: var(--md-sys-shape-corner-full); }
+.lang-top span:last-child { color: var(--primary); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.lang-track { height: 4px; background: var(--outline); border-radius: var(--r-full); overflow: hidden; }
+.lang-fill { height: 100%; background: var(--primary); border-radius: var(--r-full); }
 
 .radar-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
 .radar-wrap svg { width: 100%; height: 100%; max-height: 100%; display: block; }
-.radar-grid { stroke: var(--md-sys-color-outline); fill: none; }
-.radar-axis { stroke: var(--md-sys-color-outline-variant); }
-.radar-poly { fill: var(--md-sys-color-primary-container); stroke: var(--md-sys-color-primary); stroke-width: 2; stroke-linejoin: round; }
-.radar-dot { fill: var(--md-sys-color-on-background); stroke: var(--md-sys-color-background); stroke-width: 2; }
-.radar-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--md-sys-color-on-surface-variant); font-weight: 500; }
-.radar-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--md-sys-color-primary); font-weight: 600; }
+.radar-grid { stroke: var(--outline); fill: none; }
+.radar-axis { stroke: var(--outline-variant); }
+.radar-poly { fill: var(--primary-container); stroke: var(--primary); stroke-width: 2; stroke-linejoin: round; }
+.radar-dot { fill: var(--text); stroke: var(--bg); stroke-width: 2; }
+.radar-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--text-muted); font-weight: 500; }
+.radar-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: var(--primary); font-weight: 600; }
 
 .stack-row { display: flex; gap: 12px; }
 .stack-col { flex: 1; }
 .stack-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
-.stack-list li { display: flex; justify-content: space-between; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-medium); font-size: 12px; font-weight: 500; transition: background 0.2s;}
+.stack-list li { display: flex; justify-content: space-between; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--outline-variant); border-radius: var(--r-md); font-size: 12px; font-weight: 500; transition: background 0.2s;}
 .stack-list li:hover { background: rgba(255,255,255,0.08); }
-.stack-list .desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--md-sys-color-on-surface-variant); }
+.stack-list .desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); }
 
 .proj-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; flex: 1; overflow-y: auto;}
-.proj-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); font-size: 13px; gap: 12px; transition: background 0.2s;}
+.proj-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--outline-variant); border-radius: var(--r-lg); font-size: 13px; gap: 12px; transition: background 0.2s;}
 .proj-item:hover { background: rgba(255,255,255,0.08); }
 .proj-info { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .proj-name { font-weight: 600; font-size: 13px; color: #FFF; }
-.proj-desc { font-size: 11px; color: var(--md-sys-color-on-surface-variant); line-height: 1.4; }
-.status { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 4px 8px; border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; gap: 4px; border: 1px solid currentColor; white-space: nowrap; font-weight: 500; }
+.proj-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+.status { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 4px 8px; border-radius: var(--r-full); display: flex; align-items: center; gap: 4px; border: 1px solid currentColor; white-space: nowrap; font-weight: 500; }
 .status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
-.live { color: var(--md-sys-color-primary); }
-.dev { color: var(--md-sys-color-secondary); }
+.live { color: var(--primary); }
+.dev { color: var(--secondary); }
 .rnd { color: #a78bfa; }
 .beta { color: #facc15; }
 
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.contact-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); transition: background 0.2s; }
+.contact-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--outline-variant); border-radius: var(--r-lg); transition: background 0.2s; }
 .contact-item:hover { background: rgba(255,255,255,0.08); }
-.ci { color: var(--md-sys-color-primary); display: flex; align-items: center; justify-content: center; }
+.ci { color: var(--primary); display: flex; align-items: center; justify-content: center; }
 .ci svg { width: 18px; height: 18px; }
 .ct { display: flex; flex-direction: column; overflow: hidden; }
-.cl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 0.05em;}
+.cl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;}
 .cv { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 @media (max-width: 1100px) {
@@ -212,7 +211,7 @@ a { color: inherit; text-decoration: none; }
   .c-lang { display: none; }
   .c-contact { grid-column: 1 / 3; grid-row: 4; }
 
-  .card { padding: 12px; border-radius: var(--md-sys-shape-corner-large); }
+  .card { padding: 12px; border-radius: var(--r-lg); }
   .hero { margin-bottom: 10px; }
   .hero h1 { font-size: 24px; margin-bottom: 2px; }
   .hero p { font-size: 11px; }
@@ -268,7 +267,6 @@ a { color: inherit; text-decoration: none; }
   
   .stack-list { display: grid; grid-template-columns: 1fr 1fr 1fr; }
   .stack-list li { justify-content: center; padding: 6px; }
-  .stack-list .desc { display: none; }
   
   .proj-list { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
   .proj-item { padding: 6px; flex-direction: column; align-items: flex-start; }
@@ -378,45 +376,66 @@ a { color: inherit; text-decoration: none; }
         <ul class="proj-list">
           <li class="proj-item">
             <div class="proj-info">
-              <span class="proj-name">Javidnaman (BETA)</span>
-              <span class="proj-desc">Tribute bot honoring fallen heroes. Features a 3,300+ name database, automated memorial posting, and full group management.</span>
-            </div>
-            <span class="status beta">Beta</span>
-          </li>
-          <li class="proj-item">
-            <div class="proj-info">
-              <span class="proj-name">Minecraft Server Network</span>
-              <span class="proj-desc">Custom high-performance server. Deep plugin development, network optimization (Paper/Spigot), and full community infrastructure.</span>
+              <span class="proj-name">Farahmand School Website</span>
+              <span class="proj-desc">Production-ready Persian RTL school site with Next.js, Prisma & PostgreSQL. Full admin dashboard for staff.</span>
             </div>
             <span class="status live">Live</span>
           </li>
           <li class="proj-item">
             <div class="proj-info">
-              <span class="proj-name">xD AI Bot</span>
-              <span class="proj-desc">Autonomous Telegram assistant with local LLM integration.</span>
+              <span class="proj-name">Meowie Bot Automation</span>
+              <span class="proj-desc">Python/Telethon automation tool for the Meowie Telegram bot. Handles meowing, point transfers, fishing, commands, and street cat rescues.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Lain (Agent)</span>
+              <span class="proj-desc">Fully local system-access AI agent with deep OS integration, inspired by Claude Code & Codex. Runs entirely on-device.</span>
+            </div>
+            <span class="status rnd">R&D</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Bocchi AI BOT</span>
+              <span class="proj-desc">Uncensored AI for daily use with image understanding and generation.</span>
+            </div>
+            <span class="status live">Live</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Nijika AI OSINT BOT</span>
+              <span class="proj-desc">All-in-one OSINT bot combining multiple tools and AI automation.</span>
+            </div>
+            <span class="status dev">Dev</span>
+          </li>
+          <li class="proj-item">
+            <div class="proj-info">
+              <span class="proj-name">Ryo Database BOT</span>
+              <span class="proj-desc">Search available databases directly from Telegram without downloading.</span>
             </div>
             <span class="status live">Live</span>
           </li>
           <li class="proj-item">
             <div class="proj-info">
               <span class="proj-name">MilkyChanAI</span>
-              <span class="proj-desc">Conversational agent with persistent memory and persona.</span>
+              <span class="proj-desc">Your AI friend/partner, not a typical assistant.</span>
             </div>
             <span class="status live">Live</span>
           </li>
           <li class="proj-item">
             <div class="proj-info">
-              <span class="proj-name">xD OSINT Bot</span>
-              <span class="proj-desc">OSINT aggregation tool with conversational querying.</span>
+              <span class="proj-name">Seika Monitor BOT</span>
+              <span class="proj-desc">Real-time Telegram monitoring of profiles, stories, and channels.</span>
             </div>
-            <span class="status dev">Dev</span>
+            <span class="status live">Live</span>
           </li>
           <li class="proj-item">
             <div class="proj-info">
-              <span class="proj-name">xD Database Bot</span>
-              <span class="proj-desc">Natural language interface for database management.</span>
+              <span class="proj-name">Javidnaman (BETA)</span>
+              <span class="proj-desc">Tribute bot honoring fallen heroes with a 3,300+ name database.</span>
             </div>
-            <span class="status live">Live</span>
+            <span class="status beta">Beta</span>
           </li>
         </ul>
       </section>
@@ -493,7 +512,7 @@ a { color: inherit; text-decoration: none; }
             <span class="ct"><span class="cl">LinkedIn</span><span class="cv">xd-4rmy</span></span>
           </a>
           <div class="contact-item">
-            <span class="ci" style="color:var(--md-sys-color-on-surface-variant)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span class="ci" style="color:var(--text-muted)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
             <span class="ct"><span class="cl">Status</span><span class="cv">Available</span></span>
           </div>
         </div>
