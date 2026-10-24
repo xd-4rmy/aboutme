@@ -1,32 +1,48 @@
-# xD-4RMY — Developer Portfolio
+# xD-4RMY — Portfolio Website
 
-A minimal black-and-purple portfolio website for **xD-4RMY**, highlighting work across web development, Python automation, Telegram bots, and local AI experiments.
+A minimal, responsive developer portfolio built with semantic HTML and CSS. The visual direction uses a near-black background, restrained purple accents, and clear project-focused sections.
 
-## Preview
+## Overview
 
-The site is built as a lightweight, responsive static page using HTML and CSS.
+The portfolio introduces my interests across web development, Python automation, Telegram bots, and local AI experiments. It includes selected project summaries, a toolkit overview, and contact links.
 
 ## Features
 
 - Responsive layout for desktop, tablet, and mobile
-- Accessible section navigation and visible keyboard focus
+- Dark theme with restrained purple accents
+- Semantic page structure and keyboard-visible focus states
 - Reduced-motion support
-- Project highlights, toolkit, and contact links
-- Dark visual system with restrained purple accents
-- SEO and social preview metadata
+- Search and social preview metadata
+- Sections for projects, skills, background, and contact
 
 ## Run locally
 
-Open `index.html` in a browser, or serve the directory with any static HTTP server.
+No build step or package installation is required.
+
+1. Clone or download this repository.
+2. Open `index.html` in a browser.
+
+Alternatively, serve the directory with any static HTTP server.
+
+## Project structure
+
+```text
+aboutme/
+├── index.html
+└── README.md
+```
 
 ## Customize
 
-Update the project cards and skill tags in `index.html` as projects evolve. Keep descriptions accurate and link each project to its public repository or live demo when available.
+- Update the project cards in `index.html` as projects evolve.
+- Add links to public repositories or live demos when they are available.
+- Keep project descriptions, technology lists, and status labels accurate.
+- Update the contact links if your preferred public channels change.
 
 ## Links
 
-- GitHub: https://github.com/xd-4rmy
-- Telegram: https://t.me/xD_4RMY
+- **GitHub profile:** https://github.com/xd-4rmy
+- **Telegram:** https://t.me/xD_4RMY
 
 ---
 
